@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarSalesMan - Your Sales Tracking Superpower</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        }
+        
+        body {
+            background-color: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo img {
+            height: 24px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 8rem 1rem 4rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: #fff;
+            color: #000;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .feature-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1rem 4rem;
+            text-align: center;
+        }
+        
+        .feature-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-section p {
+            color: #aaa;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: left;
+            border: 1px solid rgba(58, 123, 213, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            animation: borderGlow 3s infinite ease-in-out, borderPulse 3s infinite ease-in-out;
+        }
+        
+        .feature-card:hover {
+            transform: scale(1.03);
+            border-color: rgba(58, 123, 213, 0.9);
+            box-shadow: 0 0 20px rgba(58, 123, 213, 0.8);
+            filter: brightness(1.1);
+        }
+        
+        .feature-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background-color: rgba(58, 123, 213, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 10px rgba(58, 123, 213, 0.5);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover .feature-icon {
+            background-color: rgba(58, 123, 213, 0.4);
+            box-shadow: 0 0 15px rgba(58, 123, 213, 0.7);
+        }
+        
+        .feature-card p {
+            font-size: 0.9rem;
+            color: #aaa;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .demo-section {
+            text-align: center;
+            padding: 2rem 1rem 4rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .demo-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .demo-video {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+            background-color: rgb(17, 17, 17);
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            position: relative;
+        }
+        
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 64px;
+            height: 64px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .play-button:before {
+            content: "";
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-left: 16px solid #000;
+            border-bottom: 10px solid transparent;
+            margin-left: 4px;
+        }
+        
+        .stats-grid {
+            margin-top: 1rem;
+        }
+        
+        .stat-box {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .savings-message {
+            background: linear-gradient(to right, rgba(20, 30, 48, 0.8), rgba(36, 59, 85, 0.8));
+            box-shadow: 0 4px 20px rgba(58, 123, 213, 0.25);
+            border: 1px solid rgba(58, 123, 213, 0.3);
+            animation: gentle-float 4s ease-in-out infinite;
+        }
+        
+        @keyframes gentle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .app-icons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .app-icon {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .app-name {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        
+        .testimonials {
+            text-align: center;
+            padding: 2rem 1rem 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials h2 {
+            font-size: 2.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .testimonials-container {
+            overflow: hidden;
+            position: relative;
+            padding: 1rem 0;
+        }
+        
+        .testimonials-container:before, .testimonials-container:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 100px;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .testimonials-container:before {
+            left: 0;
+            background: linear-gradient(to right, #000, transparent);
+        }
+        
+        .testimonials-container:after {
+            right: 0;
+            background: linear-gradient(to left, #000, transparent);
+        }
+        
+        .testimonials-grid {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            animation: scrollTestimonials 30s linear infinite;
+            width: max-content;
+        }
+        
+        @keyframes scrollTestimonials {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .testimonial-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 5px 15px rgba(58, 123, 213, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-width: 280px;
+            max-width: 280px;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(58, 123, 213, 0.3);
+        }
+        
+        .testimonial-stars {
+            display: flex;
+            gap: 0.2rem;
+            margin-bottom: 1rem;
+            color: #3a7bd5;
+        }
+        
+        .testimonial-text {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        
+        .testimonial-author {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 4rem 1rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-logo {
+            margin-bottom: 2rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .copyright {
+            font-size: 0.8rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-disclaimer {
+            font-size: 0.7rem;
+            color: #555;
+            margin-bottom: 2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-link {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+        
+        .gradient-border {
+            position: relative;
+        }
+        
+        .gradient-border:after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            border-radius: 2px;
+        }
+
+        .feature-badge.new {
+            background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+            color: #fff;
+        }
+        
+        @keyframes borderGlow {
+            0% { box-shadow: 0 0 5px rgba(58, 123, 213, 0.4), 0 0 0 1px rgba(58, 123, 213, 0.1); }
+            50% { box-shadow: 0 0 10px rgba(58, 123, 213, 0.7), 0 0 0 1px rgba(58, 123, 213, 0.3); }
+            100% { box-shadow: 0 0 5px rgba(58, 123, 213, 0.4), 0 0 0 1px rgba(58, 123, 213, 0.1); }
+        }
+        
+        @keyframes borderPulse {
+            0% { border-color: rgba(58, 123, 213, 0.3); }
+            50% { border-color: rgba(58, 123, 213, 0.8); }
+            100% { border-color: rgba(58, 123, 213, 0.3); }
+        }
+        
+        @keyframes lightBlueGlow {
+            0% { box-shadow: 0 0 5px #ADD8E6, 0 0 8px #ADD8E6; border-color: rgba(173, 216, 230, 0.7); }
+            50% { box-shadow: 0 0 10px #ADD8E6, 0 0 15px #ADD8E6; border-color: rgba(173, 216, 230, 1); }
+            100% { box-shadow: 0 0 5px #ADD8E6, 0 0 8px #ADD8E6; border-color: rgba(173, 216, 230, 0.7); }
+        }
+
+        #demo-video {
+            border: 2px solid #ADD8E6;
+            position: relative;
+            z-index: 1;
+            animation: lightBlueGlow 2s infinite ease-in-out;
+            border-radius: 4px;
+            padding: 1px;
+            margin: 3px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <rect width="24" height="24" rx="4" fill="#333" />
+                <path d="M18,9 L16,11 L16,13 L6,13 L6,11 L4,9 L6,7 L10,7 L12,5 L14,5 L16,7 L18,7 Z" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                <circle cx="8" cy="13" r="1.5" stroke="white" stroke-width="1" />
+                <circle cx="14" cy="13" r="1.5" stroke="white" stroke-width="1" />
+            </svg>
+            <span>CarSalesMan</span>
+        </div>
+        <div class="nav-links">
+            <a href="#">How to Collaborate</a>
+            <a href="#">Features</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Meet your Sales<br>Tracking Superpower</h1>
+        <p>CarSalesMan is the ultimate tool for car salespeople. Just log your sales activity and our Chrome extension will automatically track your performance! From new to used vehicles, half to full deals - all in one place.</p>
+        <a href="#" class="cta-button">Install the extension now</a>
+        
+        <div id="demo-video" class="demo-video">
+            <div class="video-placeholder">
+                <img src="/api/placeholder/800/450" alt="CarSalesMan Demo" style="width: 100%;">
+                <div class="play-button"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-section">
+        <h2 class="animate-section">Track Sales at the Speed of Closing</h2>
+        <p>CarSalesMan is an intelligent sales tracking assistant that empowers you to monitor your performance at an unprecedented pace. Let our extension handle the record-keeping so you can focus on selling more cars.</p>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>
+                    <span class="feature-icon">S</span>
+                    Sales Tracker
+                </h3>
+                <p>Track your vehicle sales with details on new/used inventory and half/full deals to boost your productivity instantly.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>
+                    <span class="feature-icon">D</span>
+                    Dashboard View
+                </h3>
+                <p>Access comprehensive sales data with interactive charts and lists that adapt to your performance metrics.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>
+                    <span class="feature-icon">Q</span>
+                    Quick Reply Snippets
+                </h3>
+                <p>Create and save frequently used text snippets like follow-ups or thank-you messages. Just type ';thanks' to instantly use your templates.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>
+                    <span class="feature-icon">P</span>
+                    Print Reports
+                </h3>
+                <p>Generate and print professional sales reports with detailed metrics for record-keeping or sharing with management.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo-section">
+        <h2>See CarSalesMan in Action</h2>
+        
+        <div class="demo-video">
+            <div class="video-placeholder">
+                <img src="/api/placeholder/800/450" alt="CarSalesMan Demo Video" style="width: 100%;">
+                <div class="play-button"></div>
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-box savings-message">
+                <div class="stat-value" style="font-size: 1.2rem; margin-bottom: 0.75rem;">
+                    <svg style="width: 20px; height: 20px; margin-right: 8px; vertical-align: middle;" viewBox="0 0 24 24" fill="none">
+                        <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5" />
+                        <path d="M12 6v6l4 2" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <strong>Save 5 hours a week — or 20+ hours a month — on paperwork.</strong>
+                </div>
+            </div>
+        </div>
+        
+        <div class="app-icons"></div>
+    </section>
+
+    <section class="feature-section">
+        <div class="features-grid">
+            <div class="feature-card" style="animation: none; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none;">
+                <h3>
+                    <span class="feature-icon" style="background-color: rgba(255, 255, 255, 0.1); box-shadow: none;">T</span>
+                    Sales Tracking
+                </h3>
+                <p>State-of-the-art tracking that monitors your vehicle sales, distinguishing between new/used and half/full deals.</p>
+            </div>
+            
+            <div class="feature-card" style="animation: none; border: 1px solid rgba(255, 255, 255, 0.1); box-shadow: none;">
+                <h3>
+                    <span class="feature-icon" style="background-color: rgba(255, 255, 255, 0.1); box-shadow: none;">+</span>
+                    Shortcut Snippets
+                </h3>
+                <p>Easy for you to create and use text snippets with the semicolon (;) shortcut system.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>What our salespeople have to say</h2>
+        
+        <div class="testimonials-container">
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"It completely changed my workflow! This extension has been a game changer for tracking my sales."</div>
+                    <div class="testimonial-author">Alexander McKenzie</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"The Quick Reply feature saves me hours each week when following up with customers."</div>
+                    <div class="testimonial-author">S.R.</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"Wonder tool for car sales!"</div>
+                    <div class="testimonial-author">@mr_fantastic_true</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"The dashboard reports impressed my sales manager!"</div>
+                    <div class="testimonial-author">Maria Rodriguez</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"I have been a car salesman for 7 years and I've never seen a tool that makes tracking so simple."</div>
+                    <div class="testimonial-author">Kimberly Santos</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"CarSalesMan is the future. Just simple to use, completely changes how I track my deals."</div>
+                    <div class="testimonial-author">Frank</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"The print feature is unbelievable for monthly reviews"</div>
+                    <div class="testimonial-author">creative1design</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"FAST reporting and easy tracking!"</div>
+                    <div class="testimonial-author">zYFT</div>
+                </div>
+                
+                <!-- Duplicate cards for infinite scroll effect -->
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"It completely changed my workflow! This extension has been a game changer for tracking my sales."</div>
+                    <div class="testimonial-author">Alexander McKenzie</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"The Quick Reply feature saves me hours each week when following up with customers."</div>
+                    <div class="testimonial-author">S.R.</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"Wonder tool for car sales!"</div>
+                    <div class="testimonial-author">@mr_fantastic_true</div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <div class="testimonial-text">"The dashboard reports impressed my sales manager!"</div>
+                    <div class="testimonial-author">Maria Rodriguez</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-logo">
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                <rect width="32" height="32" rx="6" fill="#333" />
+                <path d="M22 10L10 22M10 10L22 22" stroke="white" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </div>
+        
+        <div class="social-links">
+            <a href="#" class="social-icon">X</a>
+            <a href="#" class="social-icon">G</a>
+            <a href="#" class="social-icon">In</a>
+            <a href="#" class="social-icon">D</a>
+        </div>
+        
+        <div class="copyright">© CarSalesMan, Inc. (All rights reserved. 2023-present)</div>
+        
+        <div class="footer-disclaimer">
+            CarSalesMan provides a set of tools to help car salespeople track, report, and optimize their sales performance with simplicity.
+        </div>
+        
+        <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Fulfillment Policy</a>
+            <a href="#" class="footer-link">Cookie Policy</a>
+            <a href="#" class="footer-link">Careers</a>
+        </div>
+    </footer>
+</body>
+</html>
